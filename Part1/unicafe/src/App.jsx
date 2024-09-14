@@ -16,29 +16,30 @@ const Header = (props) => {
 
 const Stats = (props) => {
   return(
-    <div>
-      <p>{props.text} {props.stats}</p>
-    </div>
+    <tr>
+      <td>{props.text}</td>
+      <td>{props.stats}</td>
+    </tr>
   )
 }
 
 const All = ({ good, neutral, bad}) => {
   return(
-    <p>all {good + neutral + bad}</p>
+    <Stats text='all' stats={good + neutral + bad}/>
   )
 }
 
 const Average = ({ good, neutral, bad}) => {
   const sum = good + neutral + bad
   return(
-    <p>average {(good + (bad * -1)) / sum}</p>
+    <Stats text='average' stats={(good + (bad * -1)) / sum}/>
   )
 }
 
 const Positive = ({ good, neutral, bad}) => {
   const sum = good + neutral + bad
   return(
-    <p>Positive {(good / sum) * 100}%</p>
+    <Stats text='positive' stats={(good / sum) * 100 + '%'}/>
   )
 }
 
@@ -55,12 +56,16 @@ const Statistics = ({ good, neutral, bad}) => {
   return(
     <div>
       <Header text='statistics'/>
-      <Stats stats={good} text='good'/>
-      <Stats stats={neutral} text='neutral'/>
-      <Stats stats={bad} text='bad'/>
-      <All good={good} neutral={neutral} bad={bad}/>
-      <Average good={good} neutral={neutral} bad={bad}/>
-      <Positive good={good} neutral={neutral} bad={bad}/>
+      <table>
+        <tbody>
+          <Stats stats={good} text='good'/>
+          <Stats stats={neutral} text='neutral'/>
+          <Stats stats={bad} text='bad'/>
+          <All good={good} neutral={neutral} bad={bad}/>
+          <Average good={good} neutral={neutral} bad={bad}/>
+          <Positive good={good} neutral={neutral} bad={bad}/>
+        </tbody>
+      </table>
     </div>
   )
 }
